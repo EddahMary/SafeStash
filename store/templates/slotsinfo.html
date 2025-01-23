@@ -1,0 +1,99 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+</head>
+{% block content %}
+<div class="container">
+    {% if user.is_authenticated and user.is_employee %}
+    <div class="text-center" style="font-size: 30px;">There are {{countslots}} slot(s) booked in this category</div>
+    {% else %}
+    <div class="text-center" style="font-size: 30px;">You have {{count}} slot(s) in this category</div>
+    {% endif %}
+    {% if user.is_authenticated and user.is_employee %}
+    <div class="row">
+        {% if employeeslots %}
+        {% for employeeslot in employeeslots %}
+        <div class="col-md-4 mb-4" style="padding-top: 2%;">
+            <div class="card">
+                <div class="card-top bg-info">
+                    <h4 class="card-title" style="color: aliceblue;text-align: center; margin-top: 2%;">
+                        {{employeeslot.name_of_good }}
+                        <form action="{% url 'slot_delete' employeeslot.id employeeslot.category.id %}" method="post">
+                            {% csrf_token %}
+                            <button type="submit"
+                                style="background-color: red;color: white;font-size: 15px;">Delete</button>
+                        </form>
+                    </h4>
+                </div>
+                <img class="card-img" src="{{ employeeslot.image_of_good.url }}" alt="" style="height: 170px;">
+                <div class="card-body" style="height: 230px;">
+                    <p><strong>Mass:</strong> {{employeeslot.mass_of_good_in_kgs}}kgs</p>
+                    <p><strong>Current cost to be paid:</strong> shs</p>
+                    <p><strong>Date of submission:</strong> {{ employeeslot.added|date }}</p>
+                    <p><strong>Submitted by:</strong> {{ employeeslot.user.user.username }}</p>
+                    <p><strong>Customer contact:</strong> {{ employeeslot.user.user.contact }}</p>
+                </div>
+                <hr>
+                <h4 class="card-title text-center"><a class="btn btn-sm btn-info"
+                        href="{% url 'pickup' employeeslot.id %}">Pick up details</a><a class="btn btn-sm btn-warning"
+                        href="{% url 'deliver' employeeslot.id %}">Deliver details</a></h4>
+            </div>
+        </div>
+        {% endfor %}
+        {% else %}
+        <h5 class="text-center">There are <strong style="color: red;">no</strong> slots in this category <a
+                class="d-block mx-auto" href="/">
+                <button class="btn btn-sm btn-info d-block mx-auto">Back Home</button></a></h5>
+        <img src="/static/images/noslots.png" alt="noslots" height="300px" width="300px" style="margin-top: 5%;">
+        {% endif %}
+    </div>
+    {% else %}
+    <div class="row">
+        {% if slots %}
+        {% for slot in slots %}
+        <div class="col-md-4 mb-4" style="padding-top: 2%;">
+            <div class="card">
+                <div class="card-top bg-info">
+                    <h4 class="card-title" style="color: aliceblue;text-align: center; margin-top: 2%;">
+                        {{slot.name_of_good }}</h4>
+                </div>
+                <img class="card-img" src="{{ slot.image_of_good.url }}" alt="" style="height: 170px;">
+                <div class="card-body" style="height: 180px;">
+                    <p><strong>Specification:</strong> {{slot.specifications}}</p>
+                    <p><strong>Current cost to be paid:</strong> Shs. {{pickup.days}} * {{cart.cost}}</p>
+                    <p><strong>Date of submission:</strong> {{ slot.added|date }}</p>
+                </div>
+                <hr>
+                <h4 class="card-title text-center"><a class="btn btn-sm btn-success" id="pickup1"
+                        href="{% url 'pickup1' slot.id  %}">Pick Up</a><a class="btn btn-sm btn-warning" id="delivery1"
+                        href="{% url 'delivery' slot.id %}">Delivery</a> <a class="btn btn-sm btn-success" id="pickup1"
+                        href="{% url 'mpesa_stk_push' slot.user.id %}">Pay Via Mpesa</a></h4>
+            </div>
+        </div>
+        {% endfor %}
+        {% else %}
+        <h5 class="text-center">You have <strong style="color: red;">no</strong> slots in this category <a
+                class="d-block mx-auto" href="/">
+                <button class="btn btn-sm btn-info d-block mx-auto">Back Home</button></a></h5>
+        <img src="/static/images/noslots.png" alt="noslots" height="300px" width="300px" style="margin-top: 5%;">
+        {% endif %}
+    </div>
+    {% endif %}
+</div>
+<div style="
+    /* bottom: 0; */
+    width: 100%;
+    /* position: absolute; */
+    background-color: black;
+    padding-top: 40px;
+    padding-bottom: 40px;
+    text-align: center;
+    color: whitesmoke;">
+    <p style="text-align: center;"> © 2024 WekaWeka-StoreCenter. All rights reserved.</p>
+</div>
+{% endblock %}

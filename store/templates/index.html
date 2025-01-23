@@ -1,0 +1,103 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+</head>
+{% block content %}
+<!-- {% block head %}
+<link rel="stylesheet" href="{% static 'css/index.css' %}">
+{% endblock %} -->
+<div class="container">
+    {% if user.is_authenticated and user.is_employee %}
+    <div class="add" style="margin-bottom: 1%; margin-top: 2%;">
+        <p style="text-align: center;"><button class="btn btn-info btn-sm" style="color: whitesmoke; font-size: 12px;"
+                data-toggle="modal" data-target="#categoryupload" aria-hidden="true">Add Category</button></p>
+    </div>
+    {% endif %}
+    <div class="row">
+        <div class="modal fade" id="categoryupload" tabindex="-1" role="dialog"
+            aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLongTitle">Category Upload</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form action="" method="post" enctype="multipart/form-data" novalidate>
+                            {% csrf_token %}
+                            {{ form|crispy }}
+                            <button class="btn btn-sm btn-success">Upload Category</button>
+                            <button type="button" class="btn btn-sm btn-outline-danger" data-dismiss="modal">
+                                Close
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% if user.is_authenticated and user.is_employee %}
+    <marquee behaviour="scroll" direction="left" scrollamount="10">
+        <p class="scroll">Make sure you deliver goods in time and remove good to free slot!</p>
+    </marquee>
+    {% else %}
+    <marquee behaviour="scroll" direction="left" scrollamount="10">
+        <p class="scroll">Choose a category and book a slot! Hurry before slots are full! All payments are paid on
+            delivery or pickup!</p>
+    </marquee>
+    {% endif %}
+    <div class="row">
+        {% if categories %}
+        {% for category in categories %}
+        <div class="col-md-4 mb-4" style="padding-top: 2%;">
+            <div class="card">
+                <div class="card-top bg-info" style="height: 90px;">
+                    <h4 class="card-title" style="color: aliceblue;text-align: center; margin-top: 2%;">
+                        {{category.name}}
+                        {% if user.is_authenticated and user.is_employee %}
+                        <form action="{% url 'card_delete' category.id %}" method="post">
+                            {% csrf_token %}
+                            <button type="submit"
+                                style="background-color: red;color: white;font-size: 15px;">Delete</button>
+                        </form>
+                        {% endif %}
+                    </h4>
+                </div>
+                <img class="card-img" src="{{ category.image.url }}" alt="" style="height: 150px;">
+                <div class="card-body" style="height: 80px;">
+                    <h5><strong>Cost: </strong><span id="cost">{{ category.cost }}</span>Kshs per day</h5>
+                    <p><strong>Slots remaining: <span id="slots">{{category.slots_remaining}}</span> slots</strong></p>
+                </div>
+                <hr>
+                {% if user.is_authenticated and user.is_employee %}<h4 class="card-title text-center"><a
+                        class="btn btn-sm btn-outline-info" href="{% url 'employeeslots-info' category.id %}">Slots
+                        info</a></h4>{% else %}<h4 class="card-title text-center"><a class="btn btn-sm btn-outline-info"
+                        href="{% url 'new-slot' category.id %}">Book slot</a><a class="btn btn-sm btn-outline-info"
+                        href="{% url 'slots-info' category.id user.id %}">Slots info</a> </h4>{% endif %}
+            </div>
+        </div>
+        {% endfor %}
+        {% else %}
+        <h1 style="text-align: center;"><b>Sorry there are no categories currently!😥</b></h1>
+        {% endif %}
+    </div>
+</div>
+<div style="
+    bottom: 0;
+    width: 100%;
+    position: absolute;
+    background-color: black;
+    padding-top: 40px;
+    padding-bottom: 40px;
+    text-align: center;
+    color: whitesmoke;">
+    <p style="text-align: center;"> © 2024 WekaWeka-StoreCenter. All rights reserved.</p>
+</div>
+{% endblock %}

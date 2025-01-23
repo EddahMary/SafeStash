@@ -1,0 +1,39 @@
+{% extends 'base.html'%}
+{% load bootstrap4 %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+<div class="container"
+    style="color:white; margin-top: 8%; border-radius: 8px; background: url('/static/images/pattern5.png') rgb(72, 154, 248); background-repeat: repeat; width: 50vw;">
+    <div class="row">
+        <div class="col-md-1"></div>
+        <div class="col-md-10"><br><br><br>
+            <form action="" method="POST" enctype="multipart/form-data" novalidate>
+                {% csrf_token %}
+                <fieldset class="form-group">
+                    <legend class="mb-4"> Update Profile </legend>
+                    {{profile_form | crispy}}
+
+                </fieldset>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-success"> Update </button>
+                </div>
+            </form>
+        </div>
+        <div class="col-md-1"></div>
+    </div><br><br><br><br><br>
+</div>
+<div style="
+    bottom: 0;
+    width: 100%;
+    position: absolute;
+    background-color: black;
+    padding-top: 40px;
+    padding-bottom: 40px;
+    text-align: center;
+    color: whitesmoke;">
+    <p style="text-align: center;"> © 2024 WekaWeka-StoreCenter. All rights reserved.</p>
+</div>
+
+
+{% endblock %}

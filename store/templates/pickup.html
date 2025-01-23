@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
+{% block content %}
+<div class="container"
+    style="color:white;margin-top: 8%; background: url('/static/images/pattern5.png') rgb(72, 154, 248); width: 50vw; border-radius: 8px;">
+    <div class="row">
+        <div class="col-md-1"></div>
+        <div class="col-md-10"><br><br><br>
+            <h3 class="text-center">Please fill the form for pick up details here!</h3>
+            <form action="" method="post" enctype="multipart/form-data" novalidate>
+                {% csrf_token %}
+                <fieldset class="form-group">
+                    {{form | crispy}}
+
+                </fieldset>
+                <div class="form-group">
+                    <button type='submit' class="btn btn-sm btn-success" id="pickup">Submit</button>
+                </div>
+            </form>
+
+        </div>
+
+    </div>
+</div>
+<div style="
+    bottom: 0;
+    width: 100%;
+    position: absolute;
+    background-color: black;
+    padding-top: 40px;
+    padding-bottom: 40px;
+    text-align: center;
+    color: whitesmoke;">
+    <p style="text-align: center;"> © 2024 WekaWeka-StoreCenter. All rights reserved.</p>
+</div>
+
+{% endblock %}

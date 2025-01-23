@@ -1,0 +1,40 @@
+#img {
+    border-radius: 20%;
+}
+
+/* .card {
+    background-color: aqua !important;
+}
+
+.welcome {
+    color: aqua;
+} */
+
+.navbar {
+    font-family: "Madimi One", sans-serif;
+    background: radial-gradient(circle at top left, #37D5D6, #36096D) !important;
+}
+
+.weka {
+    font-family: "Madimi One", sans-serif;
+    font-weight: 400;
+}
+
+.footer-bottom {
+    background-color: black;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    padding-top: 40px;
+    padding-bottom: 40px;
+    text-align: center;
+    color: whitesmoke;
+}
+
+.footer-bottom-text {
+    text-align: center;
+}
+
+body {
+    font-family: "Madimi One", sans-serif;
+}
