@@ -32,7 +32,7 @@ To get the project :
   
 ##### Clone the repository:  
  ```bash 
- https://github.com/Kingsleymuturi/Wekaweka-storecenter.git
+ https://github.com/EddahMary/SafeStash.git
 ```
 
 ##### Navigate into the folder:
