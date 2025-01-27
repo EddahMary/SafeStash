@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+<div class="container bg-info" style="color:white;margin-top: 4%;">
+
+{% if customer %}
+    <h2 class="text-center">Customer delivery details:</h2>
+    <div class="row">
+        <div class="col-md-4"></div>
+        <div class="col-md-4"><br>
+<div class="row">
+    <div class="col-md-10">
+    {% for customers in customer %}
+    <P>Name: {{customers.name}}</p>
+    <p>Location: {{customers.location}}</p>
+    <p>Contact: {{customers.contact}}</p>
+    <p>Email: {{customers.email}}</p>
+    {% endfor %}
+
+    </div>
+</div>
+{% else %}
+<h5 class="text-center">User has <strong style="color: red;">not</strong> requested for delivery<a class="d-block mx-auto" href="/">
+    <button class="btn btn-sm btn-success d-block mx-auto">Back Home</button></a></h5><br><br>
+{% endif %}
+
+{% endblock %}

@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+<div class="container"
+    style="color:white;margin-top: 8%; background: url('/static/images/pattern5.png') rgb(72, 154, 248); width: 50vw; border-radius: 8px;">
+    {% if pickup %}
+    <h2 class="text-center">Customer pickup details:</h2>
+    <div class="row">
+        <div class="col-md-4"></div>
+        <div class="col-md-5"><br>
+            <div class="row">
+                <div class="col-md-10">
+                    {% for pickups in pickup %}
+                    <p>Time of Pickup: {{pickups.time_of_pickup}}</p>
+                    <p>Date of Pickup: {{pickups.date_of_pickup}}</p>
+                    <p>Contact: {{pickups.contact}}</p>
+                    <p>Email: {{pickups.email}}</p>
+                    {% endfor %}
+
+                </div>
+            </div>
+            {% else %}
+            <h5 class="text-center">User has <strong style="color: red;">not</strong> requested for pickup<a
+                    class="d-block mx-auto" href="/">
+                    <button class="btn btn-sm btn-success d-block mx-auto">Back Home</button></a></h5><br><br>
+            {% endif %}
+        </div>
+    </div>
+</div>
+<div style="
+    bottom: 0;
+    width: 100%;
+    position: absolute;
+    background-color: black;
+    padding-top: 40px;
+    padding-bottom: 40px;
+    text-align: center;
+    color: whitesmoke;">
+    <p style="text-align: center;"> © 2024 WekaWeka-StoreCenter. All rights reserved.</p>
+</div>
+{% endblock %}

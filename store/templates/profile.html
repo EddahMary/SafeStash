@@ -1,0 +1,131 @@
+{% extends 'base.html' %}
+{% load bootstrap4 %}
+
+{% load crispy_forms_tags %}
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="modal fade" id="storeupload" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+            aria-hidden="true" style="border-radius: 8px;">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content rounded-8" style="-webkit-border-radius: 8px !important;
+                -moz-border-radius: 8px !important;
+                border-radius: 8px !important; ">
+                    <div class="modal-header"
+                        style="background-color: rgb(72, 154, 248); color: white; border-top-left-radius: 8px; border-top-right-radius: 8px;">
+                        <h5 class="modal-title" id="exampleModalLongTitle">Store Upload</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form action="" method="post" enctype="multipart/form-data" novalidate>
+                            {% csrf_token %}
+                            {{ form|crispy }}
+                            <button class="btn btn-sm btn-success">Upload Store</button>
+                            <button type="button" class="btn btn-sm btn-outline-danger" data-dismiss="modal">
+                                Close
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <h1 style="margin-left: 40%; margin-top: 15px;"> Profile </h1>
+    <div class="row">
+        <div class="col-md-4" style="margin-left: 30%;">
+            <div class="card"
+                style="background: url('../../static/images/pattern5.png') rgb(72, 154, 248); padding-left: 10px; color: whitesmoke; box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2); transition: 0.3s;">
+                <img class="rounded-circle d-block mx-auto" style="margin-top: 3%;height: 125px;width: 125px;"
+                    src="{{ user.userprofile.profile_picture.url }}">
+                <p class="text-center mt-3" style="font-size: 20px;">{{user.username}}</p>
+                <p>Email: {{user.userprofile.email}}</p>
+                <p>Contact: {{user.userprofile.contact}}</p>
+                <a href="{% url 'update_profile' user.username%}"><button type="button" class="btn btn-success btn-sm">
+                        Update profile </button></a>
+                {% if user.is_authenticated and user.is_employee %}
+                <div class="add" style="margin-bottom: 1%;"><button class="btn btn-info btn-sm"
+                        style="color: whitesmoke; font-size: 12px;" data-toggle="modal" data-target="#storeupload"
+                        aria-hidden="true">Add Store</button></div>
+                {% endif %}
+            </div>
+        </div>
+    </div><br>
+    {% if user.is_authenticated and user.is_customer %}
+    <div class="text-center" style="font-size: 30px;">You have {{count}} slot(s)</div><br>
+    <div class="row">
+        {% if slots %}
+        {% for slot in slots %}
+        <div class="col-md-4 mb-4">
+            <div class="card">
+                <div class="card-top bg-info" style="height: 90px;">
+                    <h4 class="card-title" style="color: aliceblue;text-align: center; margin-top: 2%;">
+                        {{slot.name_of_good }}</h4>
+                </div>
+                <img class="card-img" src="{{ slot.image_of_good.url }}" alt="" style="height: 170px;">
+                <div class="card-body" style="height: 145px;">
+                    <p><strong>Mass:</strong> {{slot.mass_of_good_in_kgs}}kgs</p>
+                    <p><strong>Current cost to be paid:</strong> shs</p>
+                    <p><strong>Date of submission:</strong> {{ slot.added|date }}</p>
+                </div>
+                <hr>
+                <h4 class="card-title text-center"><a class="btn btn-sm btn-success"
+                        href="{% url 'pickup1' slot.id  %}">Pick Up</a><a class="btn btn-sm btn-warning"
+                        href="{% url 'delivery' slot.id %}">Delivery</a><a class="btn btn-sm btn-success" id="pickup1"
+                        href="{% url 'mpesa_stk_push' slot.user.id %}">Pay Via Mpesa</a> </h4>
+            </div>
+        </div>
+        {% endfor %}
+        {% else %}
+        <h5 class="text-center">You have <strong style="color: red;">no</strong> current slots!!</h5>
+        <img src="/static/images/noslots.png" alt="noslots" height="300px" width="300px" style="margin-top: 5%;">
+        {% endif %}
+    </div>
+    {% else %}
+    {% endif %}
+    {% if user.is_authenticated and user.is_employee %}
+    <div class="text-center" style="font-size: 30px;">You have {{storeCount}} store(s)</div><br>
+    <div class="row">
+        {% if stores %}
+        {% for store in stores %}
+        <div class="col-md-4 mb-4">
+            <div class="card">
+                <div class="card-top bg-info"
+                    style="height: 70px; border-top-left-radius: 5px; border-top-right-radius: 5px;">
+                    <form action="{% url 'store_delete' store.id %}" method="post">
+                        {% csrf_token %}
+                        <button type="submit"
+                            style="background-color: red;color: white;font-size: 15px;">Delete</button>
+                    </form>
+                    <h4 class="card-title" style="color: aliceblue;text-align: center; margin-top: 2%;">
+                        Owner: {{store.owner.user.username}}</h4>
+                </div>
+                <img class="card-img" src="{{ store.image_of_store.url }}" alt="" style="height: 150px;">
+                <div class="card-body" style="height: 85px;">
+                    <p><strong>Location:</strong> {{store.location}}</p>
+                    <p><strong>Contact:</strong> {{store.contact}}</p>
+                </div>
+                <hr>
+                <h4 class="card-title text-center"><a class="btn btn-sm btn-success"
+                        href="{% url 'categories' store.id  %}">View Categories</a></h4>
+            </div>
+        </div>
+        {% endfor %}
+        {% else %}
+        <h5 class="text-center ">You have <strong style="color: red;">no</strong> current stores!!</h5>
+        <img src="/static/images/noslots.png" alt="noslots" height="300px" width="500px" style="margin-top: 5%;">
+        {% endif %}
+    </div>
+    {% else %}
+    {% endif %}
+</div>
+<div style="margin-top: 100px;
+    background-color: black;
+    padding-top: 40px;
+    padding-bottom: 40px;
+    text-align: center;
+    color: whitesmoke;">
+    <p style="text-align: center;"> © 2024 WekaWeka-StoreCenter. All rights reserved.</p>
+</div>
+{% endblock %}

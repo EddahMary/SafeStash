@@ -1,0 +1,284 @@
+#body {
+    font-family: "Madimi One", sans-serif;
+    overflow-x: hidden;
+}
+
+#myVideo {
+    height: 95vh;
+    width: 100%;
+    object-fit: cover;
+    position: absolute;
+    left: 0;
+    right: 0;
+    /* top: 0; */
+    z-index: -2;
+}
+
+#myVideo2 {
+    max-height: 500px;
+    border-top-left-radius: 40px !important;
+    border-bottom-right-radius: 40px !important;
+}
+
+.intro {
+    position: relative;
+    height: 95vh;
+    background: linear-gradient(to top, rgb(0, 0, 0, 0.65), rgb(0, 0, 0, 0.65)), linear-gradient(to top, rgba(0, 0, 0, 0.75), transparent);
+    -webkit-backdrop-filter: blur(5px);
+    backdrop-filter: blur(5px);
+}
+
+.carousel-landing {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 850px;
+}
+
+.carousel-item {
+    text-align: center;
+}
+
+.item {
+    margin-left: 105px !important;
+    margin-right: 100px !important;
+    border-top-left-radius: 40px !important;
+    border-bottom-right-radius: 40px !important;
+    max-height: 500px;
+}
+
+.intro2 {
+    background-image: url("../../static/images/intro.jpg");
+    background-size: cover;
+    padding-left: 5%;
+    padding-right: 5%;
+}
+
+.streamline {
+    text-align: center;
+    font-family: "Madimi One", sans-serif;
+    font-weight: 400;
+    font-size: 4vw;
+    padding-top: 100px;
+}
+
+hr {
+    background-color: #7205f7;
+    height: 3px;
+    width: 50%;
+    margin-left: 25% !important;
+    margin-right: 25% !important;
+}
+
+.streamline-text {
+    margin-top: 15px;
+    padding-bottom: 100px;
+    text-align: center;
+    font-family: "Madimi One", sans-serif;
+    font-weight: 200 !important;
+    font-size: 2vw;
+    margin-bottom: 0 !important;
+}
+
+.intro3 {
+    background: url('../../static/images/pattern5.png') rgb(227, 234, 242);
+    background-repeat: repeat;
+    padding-left: 0%;
+    padding-right: 5%;
+    padding-top: 5%;
+    padding-bottom: 5%;
+}
+
+.item3 {
+    height: 600px;
+    width: 100%;
+    margin-bottom: 50px;
+    border-bottom-right-radius: 6px;
+    border-top-right-radius: 10px;
+    object-fit: cover;
+}
+
+.why {
+    font-family: "Madimi One", sans-serif;
+    font-weight: 200 !important;
+    font-size: 4vw;
+    color: #5e5e5e;
+}
+
+.why-img {
+    height: 100px;
+}
+
+.convenience {
+    font-size: 3vw;
+    color: #5e5e5e;
+}
+
+.delivery-img {
+    width: 100px;
+}
+
+.intro4 {
+    background: url('../../static/images/pattern5.png') rgb(72, 154, 248);
+    background-repeat: repeat;
+    padding-left: 5%;
+    padding-right: 0%;
+    padding-top: 5%;
+    padding-bottom: 5%;
+    color: whitesmoke;
+}
+
+.how {
+    font-weight: 200 !important;
+    font-size: 4vw;
+    color: whitesmoke;
+}
+
+.item4 {
+    height: 400px;
+    width: 100%;
+    margin-bottom: 50px;
+    border-bottom-left-radius: 6px;
+    border-top-left-radius: 6px;
+    object-fit: cover;
+}
+
+.intro5 {
+    width: 90%;
+    max-width: 1000px;
+    margin: 50px auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.item5 {
+    width: 60%;
+    height: 450px;
+    background: url('../../static/images/unit.jpeg') no-repeat center / cover;
+    border-radius: 8px;
+}
+
+.experience {
+    width: 55%;
+    min-height: 450px;
+    background-color: #36096D;
+    /* display: flex; */
+    align-items: center;
+    justify-content: center;
+    padding: 30px;
+    border-radius: 8px;
+    color: white;
+    margin-left: -150px;
+    margin-top: 10%;
+}
+
+.value {
+    text-align: center;
+    font-size: 3vw;
+}
+
+.value-text {
+    font-size: 1.5vw;
+}
+
+.bottom {
+    margin-top: 100px;
+    background-color: black;
+    padding-top: 40px;
+    padding-bottom: 40px;
+    text-align: center;
+    color: whitesmoke;
+}
+
+.bottom-text {
+    text-align: center;
+}
+
+@media only screen and (min-width: 1284px) {
+
+    .streamline {
+        font-size: 3vw;
+    }
+
+    hr {
+        background-color: #7205f7;
+        height: 3px;
+        width: 50%;
+        margin-left: 25% !important;
+        margin-right: 25% !important;
+    }
+
+    .streamline-text {
+        font-size: 1.5vw;
+    }
+
+    .intro3 {
+        padding-left: 5%;
+    }
+
+    .item3 {
+        height: 600px;
+        border-radius: 6px;
+    }
+
+    .why {
+        font-size: 3vw;
+    }
+
+    .convenience {
+        font-size: 2vw;
+        color: #7205f7;
+    }
+
+    .intro4 {
+        padding-right: 5%;
+    }
+
+    .how {
+        font-size: 3vw;
+    }
+
+    .how-text {
+        font-size: 1.5vw !important;
+    }
+
+    .item4 {
+        height: 550px;
+        border-radius: 6px;
+    }
+
+    .item5 {
+        width: 60%;
+        height: 550px;
+        background: url('../../static/images/unit.jpeg') no-repeat center / cover;
+        border-radius: 8px;
+    }
+
+    .experience {
+        min-height: 450px;
+        margin-top: 20%;
+    }
+
+    .value {
+        text-align: center;
+        font-size: 2vw;
+    }
+
+    .value-text {
+        font-size: 1.2vw;
+    }
+
+    .bottom {
+        margin-top: 100px;
+        background-color: black;
+        padding-top: 40px;
+        padding-bottom: 40px;
+        text-align: center;
+        color: whitesmoke;
+    }
+
+    .bottom-text {
+        text-align: center;
+    }
+}
